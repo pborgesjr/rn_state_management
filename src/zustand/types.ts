@@ -10,10 +10,12 @@ export interface CartItemStore extends CartItem {
 
 export type State = {
   cart: CartItemStore[];
+  items: CartItem[];
 };
 
 export type Action = {
   addToCart: (item: CartItem) => void;
   removeFromCart: (id: string) => void;
   resetCart: () => void;
+  fetchItems: () => Promise<void>;
 };

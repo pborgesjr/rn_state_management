@@ -3,13 +3,11 @@ import {
   StyleSheet,
   ScrollView,
   View,
-  Button,
   Text,
   TouchableOpacity,
 } from 'react-native';
 
 import {ZustandScreenProps} from '../routes/types';
-import {MOCK_ITEMS} from '../mock';
 import {Item} from '../components/Item';
 import {useStoreSelectors} from '../zustand/store';
 
@@ -22,6 +20,12 @@ const renderHeaderRight = (onPress: () => void) => (
 
 export const ZustandScreen = ({navigation}: ZustandScreenProps) => {
   const addToCart = useStoreSelectors.use.addToCart();
+  const fetchItems = useStoreSelectors.use.fetchItems();
+  const items = useStoreSelectors.use.items();
+
+  useEffect(() => {
+    fetchItems();
+  }, [fetchItems]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -37,7 +41,7 @@ export const ZustandScreen = ({navigation}: ZustandScreenProps) => {
         contentContainerStyle={styles.content}
         bounces={false}
         overScrollMode="never">
-        {MOCK_ITEMS.map(item => (
+        {items.map(item => (
           <Item key={item.id} {...item} onPress={() => addToCart(item)} />
         ))}
       </ScrollView>
