@@ -1,20 +1,26 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, Button, View} from 'react-native';
 
 type ItemProps = {
   id: string;
   name: string;
   price: number;
+  amount?: number;
   onPress?: () => void;
+  onRemove?: () => void;
 };
 
-export const Item = ({id, name, price, onPress}: ItemProps) => {
+export const Item = ({name, price, amount, onPress, onRemove}: ItemProps) => {
+  const itemText = amount
+    ? `${name} - ${price} - ${amount}x`
+    : `${name} - ${price}`;
+
   return (
-    <TouchableOpacity onPress={onPress} key={id} style={styles.item}>
-      <Text style={styles.text}>
-        {name} - {price}
-      </Text>
-    </TouchableOpacity>
+    <View style={styles.item}>
+      <Text style={styles.text}>{itemText}</Text>
+      {onPress && <Button title="Add" onPress={onPress} />}
+      {onRemove && <Button title="Remove" onPress={onRemove} />}
+    </View>
   );
 };
 
@@ -23,7 +29,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 16,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
   },
   text: {
     color: '#000',

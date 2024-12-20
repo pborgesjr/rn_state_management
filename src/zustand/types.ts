@@ -4,8 +4,12 @@ export type CartItem = {
   price: number;
 };
 
+export interface CartItemStore extends CartItem {
+  amount: number;
+}
+
 export type State = {
-  cart: CartItem[];
+  cart: CartItemStore[];
 };
 
 export type Action = {
