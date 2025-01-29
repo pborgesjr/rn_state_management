@@ -8,6 +8,10 @@ export type RootStackParamList = {
   MobXCart: undefined;
   RTK: undefined;
   RTKCart: undefined;
+  RTKQuery: undefined;
+  RTKQueryCart: undefined;
+  ContextAPI: undefined;
+  ContextAPICart: undefined;
 };
 
 export type HomeScreenProps = NativeStackScreenProps<
@@ -34,4 +38,20 @@ export type RTKScreenProps = NativeStackScreenProps<RootStackParamList, 'RTK'>;
 export type RTKCartScreenProps = NativeStackScreenProps<
   RootStackParamList,
   'RTKCart'
+>;
+export type RTKQueryScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'RTKQuery'
+>;
+export type RTKQueryCartScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'RTKQueryCart'
+>;
+export type ContextAPIScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'ContextAPI'
+>;
+export type ContextAPICartScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'ContextAPICart'
 >;

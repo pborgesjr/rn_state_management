@@ -4,7 +4,6 @@ import {Pressable, SafeAreaView, StyleSheet, Text} from 'react-native';
 import {HomeScreenProps} from '../routes/types';
 
 export const HomeScreen = ({navigation}: HomeScreenProps) => {
-  //TODO: testar sombra 0.76
   return (
     <SafeAreaView style={styles.container}>
       <Pressable
@@ -23,6 +22,18 @@ export const HomeScreen = ({navigation}: HomeScreenProps) => {
         onPress={() => navigation.navigate('RTK')}
         style={styles.button}>
         <Text style={styles.text}>Go to RTK Example</Text>
+      </Pressable>
+
+      <Pressable
+        onPress={() => navigation.navigate('RTKQuery')}
+        style={styles.button}>
+        <Text style={styles.text}>Go to RTK + Query Example</Text>
+      </Pressable>
+
+      <Pressable
+        onPress={() => navigation.navigate('ContextAPI')}
+        style={styles.button}>
+        <Text style={styles.text}>Go to Context API Example</Text>
       </Pressable>
     </SafeAreaView>
   );
