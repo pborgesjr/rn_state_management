@@ -1,13 +1,19 @@
 import {makeAutoObservable} from 'mobx';
-import {MOCK_ITEMS} from '../mock';
-import {CartItem, CartItemStore} from './types';
 
-const fetchItems = (): Promise<CartItem[]> => {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(MOCK_ITEMS);
-    }, 2000);
-  });
+import {CartItem, CartItemStore} from './types';
+import {MOCK_URL} from '../utils/constants';
+
+const fetchItems = async () => {
+  try {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    const response = await fetch(MOCK_URL);
+    const data: CartItem[] = await response.json();
+    return data;
+  } catch (error) {
+    return [];
+    // handle error
+  }
 };
 
 const addToCart = (newItem: CartItem, cart: CartItemStore[]) => {

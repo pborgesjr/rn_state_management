@@ -3,7 +3,7 @@ import {immer} from 'zustand/middleware/immer';
 
 import {createSelectors} from './create-selectors';
 import {Action, State} from './types';
-import {MOCK_ITEMS} from '../mock';
+import {MOCK_URL} from '../utils/constants';
 
 export const initialState: State = {
   cart: [],
@@ -18,9 +18,15 @@ const useStore = create<State & Action>()(
 
     /** Actions */
     fetchItems: async () => {
-      setTimeout(() => {
-        set({items: MOCK_ITEMS});
-      }, 2000);
+      try {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        const response = await fetch(MOCK_URL);
+        const data = await response.json();
+        set({items: data});
+      } catch (error) {
+        // handle error
+      }
     },
     addToCart: newItem =>
       set(state => {
