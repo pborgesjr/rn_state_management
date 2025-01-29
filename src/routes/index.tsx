@@ -8,6 +8,7 @@ import {MobXScreen} from '../screens/MobXScreen';
 import {RTKScreen} from '../screens/RTKScreen';
 import {RootStackParamList} from './types';
 import {MobXCartScreen} from '../screens/MobXCartScreen';
+import {RTKCartScreen} from '../screens/RTKCartScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -23,5 +24,6 @@ export const RootStack = () => (
     <Stack.Screen name="MobX" component={MobXScreen} />
     <Stack.Screen name="MobXCart" component={MobXCartScreen} />
     <Stack.Screen name="RTK" component={RTKScreen} />
+    <Stack.Screen name="RTKCart" component={RTKCartScreen} />
   </Stack.Navigator>
 );
