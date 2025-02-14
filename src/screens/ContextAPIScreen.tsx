@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -7,10 +7,11 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import {RTKScreenProps} from '../routes/types';
+import {ContextAPIScreenProps} from '../routes/types';
 import {Item} from '../components/Item';
-import {fetchItems, addToCart} from '../rtk/cartSlice';
-import {useAppDispatch, useAppSelector} from '../rtk/store';
+import {CartContext} from '../context/cartContext';
+import {CartItem} from '../context/types';
+import {MOCK_URL} from '../utils/constants';
 
 const renderHeaderTitle = () => <Text style={styles.title}>Context API</Text>;
 const renderHeaderRight = (onPress: () => void) => (
@@ -19,13 +20,25 @@ const renderHeaderRight = (onPress: () => void) => (
   </TouchableOpacity>
 );
 
-export const ContextAPIScreen = ({navigation}: RTKScreenProps) => {
-  const {items} = useAppSelector(state => state.cart);
+export const ContextAPIScreen = ({navigation}: ContextAPIScreenProps) => {
+  const {items, handleSetItems, handleSetCart} = useContext(CartContext);
 
-  const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchItems());
-  }, [dispatch]);
+    const fetchItemsAsync = async () => {
+      try {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        const response = await fetch(MOCK_URL);
+        const data: CartItem[] = await response.json();
+        handleSetItems?.(data);
+      } catch (error) {
+        console.error('Error fetching items:', error);
+        return [];
+      }
+    };
+
+    fetchItemsAsync();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     navigation.setOptions({
@@ -42,11 +55,7 @@ export const ContextAPIScreen = ({navigation}: RTKScreenProps) => {
         bounces={false}
         overScrollMode="never">
         {items.map(item => (
-          <Item
-            key={item.id}
-            {...item}
-            onPress={() => dispatch(addToCart(item))}
-          />
+          <Item key={item.id} {...item} onPress={() => handleSetCart?.(item)} />
         ))}
       </ScrollView>
     </View>

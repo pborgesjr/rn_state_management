@@ -1,14 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {StyleSheet, ScrollView, View, Button, Text} from 'react-native';
 
 import {Item} from '../components/Item';
-import {useAppSelector, useAppDispatch} from '../rtk/store';
-import {removeFromCart, resetCart} from '../rtk/cartSlice';
+import {CartContext} from '../context/cartContext';
 
 export const ContextAPICartScreen = () => {
-  const {cart} = useAppSelector(state => state.cart);
+  const {cart, handleRemoveFromCart} = useContext(CartContext);
 
-  const dispatch = useAppDispatch();
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scroll} contentContainerStyle={styles.content}>
@@ -16,7 +14,7 @@ export const ContextAPICartScreen = () => {
           <Item
             key={item.id}
             {...item}
-            onRemove={() => dispatch(removeFromCart(item.id))}
+            onRemove={() => handleRemoveFromCart?.(item.id)}
           />
         ))}
       </ScrollView>
@@ -28,7 +26,7 @@ export const ContextAPICartScreen = () => {
         )}
       </Text>
       {cart.length > 0 && (
-        <Button title="Clear cart" onPress={() => dispatch(resetCart())} />
+        <Button title="Clear cart" onPress={() => handleRemoveFromCart?.()} />
       )}
     </View>
   );
