@@ -7,9 +7,11 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import {RTKScreenProps} from '../routes/types';
+import {RTKQueryScreenProps} from '../routes/types';
 import {Item} from '../components/Item';
 import {useGetItemsQuery} from '../rtk/itemsApiSlice';
+import {useAppDispatch} from '../rtk/store';
+import {addToCart} from '../rtk/cartSlice';
 
 const renderHeaderTitle = () => <Text style={styles.title}>RTK + Query</Text>;
 const renderHeaderRight = (onPress: () => void) => (
@@ -18,13 +20,15 @@ const renderHeaderRight = (onPress: () => void) => (
   </TouchableOpacity>
 );
 
-export const RTKQueryScreen = ({navigation}: RTKScreenProps) => {
+export const RTKQueryScreen = ({navigation}: RTKQueryScreenProps) => {
   const {data: items, isLoading} = useGetItemsQuery({});
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     navigation.setOptions({
       headerRight: () =>
-        renderHeaderRight(() => navigation.navigate('RTKQueryCart')),
+        renderHeaderRight(() => navigation.navigate('RTKCart')),
       headerTitle: renderHeaderTitle,
     });
   }, [navigation]);
@@ -37,7 +41,11 @@ export const RTKQueryScreen = ({navigation}: RTKScreenProps) => {
         bounces={false}
         overScrollMode="never">
         {items?.map(item => (
-          <Item key={item.id} {...item} onPress={() => {}} />
+          <Item
+            key={item.id}
+            {...item}
+            onPress={() => dispatch(addToCart(item))}
+          />
         ))}
       </ScrollView>
     </View>

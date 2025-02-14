@@ -14,8 +14,8 @@ function App(): React.JSX.Element {
 
   return (
     <NavigationContainer>
-      <Provider store={reduxStore}>
-        {/* <Provider store={rtkStore}> */}
+      {/* <Provider store={reduxStore}> */}
+      <Provider store={rtkStore}>
         <CartContext.Provider value={{...cartValues, ...itemValues}}>
           <RootStack />
         </CartContext.Provider>
