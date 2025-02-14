@@ -2,13 +2,14 @@ import React from 'react';
 import {StyleSheet, ScrollView, View, Button, Text} from 'react-native';
 
 import {Item} from '../components/Item';
-import {useAppSelector, useAppDispatch} from '../rtk/store';
-import {removeFromCart, resetCart} from '../rtk/cartSlice';
+import {useAppDispatch, useAppSelector} from '../redux/utils';
+import {clearCart, removeFromCart} from '../redux/actions';
 
-export const RTKQueryCartScreen = () => {
-  const {cart} = useAppSelector(state => state.cart);
+export const ReduxCartScreen = () => {
+  const cart = useAppSelector(state => state.cart);
 
   const dispatch = useAppDispatch();
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scroll} contentContainerStyle={styles.content}>
@@ -28,7 +29,7 @@ export const RTKQueryCartScreen = () => {
         )}
       </Text>
       {cart.length > 0 && (
-        <Button title="Clear cart" onPress={() => dispatch(resetCart())} />
+        <Button title="Clear cart" onPress={() => dispatch(clearCart())} />
       )}
     </View>
   );

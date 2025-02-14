@@ -8,9 +8,10 @@ import {MobXScreen} from '../screens/MobXScreen';
 import {RTKScreen} from '../screens/RTKScreen';
 import {RootStackParamList} from './types';
 import {MobXCartScreen} from '../screens/MobXCartScreen';
+import {ReduxCartScreen} from '../screens/ReduxCartScreen';
+import {ReduxScreen} from '../screens/ReduxScreen';
 import {RTKCartScreen} from '../screens/RTKCartScreen';
 import {RTKQueryScreen} from '../screens/RTKQueryScreen';
-import {RTKQueryCartScreen} from '../screens/RTKQueryCartScreen';
 import {ContextAPIScreen} from '../screens/ContextAPIScreen';
 import {ContextAPICartScreen} from '../screens/ContextAPICartScreen';
 
@@ -27,11 +28,11 @@ export const RootStack = () => (
     <Stack.Screen name="ZustandCart" component={ZustandCartScreen} />
     <Stack.Screen name="MobX" component={MobXScreen} />
     <Stack.Screen name="MobXCart" component={MobXCartScreen} />
-    {/** Insert bare redux example */}
+    <Stack.Screen name="Redux" component={ReduxScreen} />
+    <Stack.Screen name="ReduxCart" component={ReduxCartScreen} />
     <Stack.Screen name="RTK" component={RTKScreen} />
     <Stack.Screen name="RTKCart" component={RTKCartScreen} />
     <Stack.Screen name="RTKQuery" component={RTKQueryScreen} />
-    <Stack.Screen name="RTKQueryCart" component={RTKQueryCartScreen} />
     <Stack.Screen name="ContextAPI" component={ContextAPIScreen} />
     <Stack.Screen name="ContextAPICart" component={ContextAPICartScreen} />
   </Stack.Navigator>

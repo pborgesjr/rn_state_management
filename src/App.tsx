@@ -3,7 +3,8 @@ import {Provider} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
 
 import {RootStack} from './routes';
-import {store} from './rtk/store';
+import {store as rtkStore} from './rtk/store';
+import reduxStore from './redux/store';
 import {CartContext} from './context/cartContext';
 import {useCart, useItems} from './context/useCart';
 
@@ -13,7 +14,8 @@ function App(): React.JSX.Element {
 
   return (
     <NavigationContainer>
-      <Provider store={store}>
+      <Provider store={reduxStore}>
+        {/* <Provider store={rtkStore}> */}
         <CartContext.Provider value={{...cartValues, ...itemValues}}>
           <RootStack />
         </CartContext.Provider>

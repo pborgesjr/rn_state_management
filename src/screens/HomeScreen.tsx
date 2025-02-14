@@ -19,6 +19,12 @@ export const HomeScreen = ({navigation}: HomeScreenProps) => {
       </Pressable>
 
       <Pressable
+        onPress={() => navigation.navigate('Redux')}
+        style={styles.button}>
+        <Text style={styles.text}>Go to Redux Example</Text>
+      </Pressable>
+
+      <Pressable
         onPress={() => navigation.navigate('RTK')}
         style={styles.button}>
         <Text style={styles.text}>Go to RTK Example</Text>
